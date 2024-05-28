@@ -1,0 +1,186 @@
+/* navbar */
+
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif!important;
+}
+
+.main-text{
+    color: #4773B8!important;
+}
+
+.btn-login{
+    /* background: #; */
+    border: #4773B8 1px solid;
+    border-radius: 0;
+    color: #4773B8!important;
+    padding: 5px 20px;
+    transition: .3s;
+}
+
+.btn-login:hover{
+    background: #4773B8;
+    /* border: #4773B8 1px solid; */
+    border-radius: 0;
+    color: white!important;
+    padding: 5px 20px;
+}
+
+.btn-signup{
+    background: #4773B8;
+    /* border: #4773B8 1px solid; */
+    border-radius: 0;
+    color: white!important;
+    padding: 5px 20px;
+}
+
+nav{
+    border-bottom: #4773B8 2px solid;
+}
+
+/* carousel */
+
+.img-carousel{
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.carousel-caption{
+    top: 150px;
+    left: 200px;
+    text-align: left;
+}
+
+.gradient-main1{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(to right, #4773B8, transparent);
+}
+
+.carousel-indicators{
+    justify-content: start;
+}
+
+.carousel-indicators li{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0px 20px;
+    position: relative;
+}
+
+.carousel-indicators li.active::after{
+    content: '';
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: white 1px solid;
+    position: absolute;
+    top: -10px;
+    left: -10px;
+}
+
+.linedots{
+    height: 2px;
+    background: white;
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    z-index: 100;
+}
+
+/* trending */
+.line-main{
+    width: 150px;
+    height: 5px;
+    background: #4773B8;
+    margin-bottom: 40px;
+}
+
+.img-trend{
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+}
+
+.gradient-main2{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(to top, #4773B8, transparent);
+}
+
+.daerah{
+    transition: all .5;
+}
+
+.daerah:hover{
+    background-color: #165dce;
+}
+
+/* top-des */
+.img-top-des{
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.menuFilter{
+    height: 800px;
+}
+
+.card-top{
+    border: white 2px solid;
+    transition: all .3s;
+}
+.card-top:hover{
+    border: #4773B8 2px solid;
+}
+
+/* Detail */
+
+.img-detail-main{
+    height: 500px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.img-detail-sub{
+    height: 150px;
+    object-fit: cover;
+    object-position: center;
+    margin-bottom: 30px;
+}
+
+/* reviees */
+.reviews{
+    margin-top: 20px;
+    padding: 20px;
+    border: #4773B8 2px solid;
+}
+
+@media screen and (max-width:768px) {
+    .menu{
+        position: fixed;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: -100%;
+        visibility: none;
+        z-index:500;
+        transition: all .5s;
+    }
+
+    .menu-show{
+        visibility: visible;
+        left: 0;
+        top: 0;
+        z-index:500
+    }
+}
