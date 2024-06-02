@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once "DB.php";
     $db = new DB;
     $query  = "Select * from user";
@@ -8,49 +9,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentra Wisata Kuliner</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css"  rel="stylesheet" />
+    <title>SWK | Sentra Wisata Kuliner Sidoarjo</title>
+    <link rel="shortcut icon" href="assets/logo.svg" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
+    <div>
+        <?php 
+            if (isset($_GET['f']) && isset($_GET['m'])) {
+                $f=$_GET['f'];
+                $m=$_GET['m'];
+
+                $file = $f.'/'.$m.'.php';
+
+                require_once $file;
+            }else {
+                if(isset($_SESSION['Role'])){
+                    if ($_SESSION['Role'] == 1) {
+                        require_once "home/admin.php";
+                    }else if($_SESSION['Role'] == 2){
+                        require_once "home/penjual.php";
+                    }else {
+                        require_once "home/home.php";
+                    }
+                }else{
+                    require_once "home/home.php";
+                }
+            }
+        ?>
+    </div>
+    
     
 
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-
-<nav class="bg-white border-gray-200 dark:bg-gray-900">
-    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
-        <a href="https://flowbite.com" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo" />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
-        </a>
-        <div class="flex items-center space-x-6 rtl:space-x-reverse">
-            <a href="tel:5541251234" class="text-sm  text-gray-500 dark:text-white hover:underline">(555) 412-1234</a>
-            <a href="#" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Login</a>
-        </div>
-    </div>
-</nav>
-<nav class="bg-gray-50 dark:bg-gray-700">
-    <div class="max-w-screen-xl px-4 py-3 mx-auto">
-        <div class="flex items-center">
-            <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
-                <li>
-                    <a href="#" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
-                </li>
-                <li>
-                    <a href="#" class="text-gray-900 dark:text-white hover:underline">Company</a>
-                </li>
-                <li>
-                    <a href="#" class="text-gray-900 dark:text-white hover:underline">Team</a>
-                </li>
-                <li>
-                    <a href="#" class="text-gray-900 dark:text-white hover:underline">Features</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('.menuToggle').click(function(){
+                $('.menu').toggleClass('menu-show')
+            })
+        })
+    </script>
 </body>
 </html>
