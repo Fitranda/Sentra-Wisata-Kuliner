@@ -121,7 +121,7 @@ h2 {
                 <p class="card-address"><?=$value['alamat_sentra']?></p>
                 <p class="card-capacity">Kapasitas: <?=$value['kapasitas_sentra']?> orang</p>
                 <p class="card-operators">Jumlah Pelaku: <?=$value['jml_pelaku_sentra']?> orang</p>
-                <p class="card-operational-cost">Biaya Operasional: Rp <?=number_format($value['biaya_operasional_sentra'],2,",",".")?></p>
+                <p class="card-operational-cost">Biaya Operasional: Rp <?=number_format($value['biaya_operasional_sentra'],0,",",".")?></p>
             </div>
         </div>
     <?php 
@@ -133,7 +133,10 @@ h2 {
 
 <script type="text/javascript">
     $('.add-button').on('click', function() {
-    window.location.href = 'http://sentra-wisata-kuliner.test/?f=admin&m=tambahSentra';
+    window.location.href = '?f=admin&m=tambahSentra';
+    });
+    $('.btn-logout').on('click', function() {
+    window.location.href = '?f=home&m=logout';
     });
 </script>
     
