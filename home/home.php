@@ -275,6 +275,6 @@
     });
 
     $('.btn-signup').on('click', function() {
-    window.location.href = '?f=home&m=register';
+    window.location.href = '?f=home&m=daftar';
     });
 </script>
