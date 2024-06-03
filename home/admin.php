@@ -112,19 +112,20 @@ h2 {
 <button class="add-button">Tambah</button>
 <div class="kotak-card d-flex justify-content-center flex-wrap">
     <?php 
-    for($i = 0; $i < 6 ; $i++):?>
+    $data_SWK = $db->getALL("select * from sentra");
+    foreach ($data_SWK as $key => $value):?>
         <div class="card">
-            <img src="image.jpg" alt="Gambar" class="card-image">
+            <img src="../assets/img/<?php echo $value['gambar']?>" alt="Gambar" class="card-image">
             <div class="card-content">
-                <h2 class="card-name">Nama</h2>
-                <p class="card-address">Alamat</p>
-                <p class="card-capacity">Kapasitas: 100 orang</p>
-                <p class="card-operators">Jumlah Pelaku: 5 orang</p>
-                <p class="card-operational-cost">Biaya Operasional: Rp 10.000.000</p>
+                <h2 class="card-name"><?=$value['nama_sentra']?></h2>
+                <p class="card-address"><?=$value['alamat_sentra']?></p>
+                <p class="card-capacity">Kapasitas: <?=$value['kapasitas_sentra']?> orang</p>
+                <p class="card-operators">Jumlah Pelaku: <?=$value['jml_pelaku_sentra']?> orang</p>
+                <p class="card-operational-cost">Biaya Operasional: Rp <?=number_format($value['biaya_operasional_sentra'],2,",",".")?></p>
             </div>
         </div>
     <?php 
-    endfor;
+    endforeach;
     ?>
 </div>
 
