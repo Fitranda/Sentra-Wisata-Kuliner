@@ -126,12 +126,21 @@ if (isset($_POST['TambahSentra'])) {
     $kapasitas = $_POST['kapasitas'];
     $biaya = $_POST['biaya'];
     $gambar = $_FILES['gambar']['name'];
-    $temp_dir = sys_get_temp_dir();
-    $temp_file = tempnam($temp_dir, 'TMP');
-    move_uploaded_file($_FILES['gambar']['tmp_name'], $temp_file);
-    $target_dir = "../assets/images/";
-    $target_file = $target_dir. basename($gambar);
-    move_uploaded_file($_FILES['gambar']['tmp_name'], $target_file);
+    $temp_file = $_FILES['gambar']['tmp_name'];
+    $target_dir = "assets/img/";
+    $target_file = $target_dir . basename($gambar);
+
+    // Check if the target directory exists, if not, create it
+    if (!is_dir($target_dir)) {
+        mkdir($target_dir, 0777, true);
+    }
+
+    // Move the uploaded file to the target directory
+    if (move_uploaded_file($temp_file, $target_file)) {
+        echo "File berhasil dipindahkan ke $target_file";
+    } else {
+        echo "Error: " . error_get_last()['message'];
+    }
     $sql = "insert into sentra (
         `nama_sentra`,
         `alamat_sentra`,
