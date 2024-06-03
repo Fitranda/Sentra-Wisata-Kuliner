@@ -129,4 +129,10 @@ h2 {
 </div>
 
 </div>
+
+<script type="text/javascript">
+    $('.add-button').on('click', function() {
+    window.location.href = 'http://sentra-wisata-kuliner.test/?f=admin&m=tambahSentra';
+    });
+</script>
     
