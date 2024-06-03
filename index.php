@@ -4,6 +4,12 @@
     $db = new DB;
     $query  = "Select * from user";
     $row = $db->getALL($query);
+
+    function getBaseUrl() {
+        $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS']!= 'off' || $_SERVER['SERVER_PORT'] == 443)? "https://" : "http://";
+        $domainName = $_SERVER['HTTP_HOST'];
+        return $protocol. $domainName;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

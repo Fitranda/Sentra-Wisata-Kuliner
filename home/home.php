@@ -265,19 +265,16 @@
         </div>
 
     </div>
+    <?php 
+        $url = getBaseUrl();
+    ?>
 
 <script type="text/javascript">
-    // Add an event listener to the login button
     $('.btn-login').on('click', function() {
-    console.log('Login button clicked!');
-    // You can also redirect to a login page or perform an AJAX request here
-    window.location.href = 'http://sentra-wisata-kuliner.test/?f=home&m=login';
+    window.location.href = '/?f=home&m=login';
     });
 
-    // Add an event listener to the signup button
     $('.btn-signup').on('click', function() {
-    console.log('Signup button clicked!');
-    // You can also redirect to a signup page or perform an AJAX request here
-    window.location.href = 'http://sentra-wisata-kuliner.test/?f=home&m=register';
+    window.location.href = '?f=home&m=register';
     });
 </script>
