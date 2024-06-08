@@ -23,15 +23,18 @@ DROP TABLE IF EXISTS `identitas`;
 CREATE TABLE `identitas` (
   `ididentitas` bigint NOT NULL AUTO_INCREMENT,
   `idsentra` bigint DEFAULT NULL,
+  `iduser` bigint DEFAULT NULL,
   `Nama` varchar(255) DEFAULT NULL COMMENT 'Nama Lapak',
-  `penyewa` varchar(255) DEFAULT NULL COMMENT 'Nama penyewa',
   `no_lapak` bigint DEFAULT NULL COMMENT 'No lapak',
   `telp` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`ididentitas`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `identitas` */
+
+insert  into `identitas`(`ididentitas`,`idsentra`,`iduser`,`Nama`,`no_lapak`,`telp`,`email`) values 
+(1,1,4,'Seblak Mantab',1,'089326462623','seblak@gmail.com');
 
 /*Table structure for table `kategori` */
 
@@ -41,9 +44,13 @@ CREATE TABLE `kategori` (
   `idkategori` bigint NOT NULL AUTO_INCREMENT,
   `kategori` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idkategori`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `kategori` */
+
+insert  into `kategori`(`idkategori`,`kategori`) values 
+(1,'Makanan'),
+(2,'Minuman');
 
 /*Table structure for table `menu` */
 
@@ -56,10 +63,15 @@ CREATE TABLE `menu` (
   `menu` varchar(255) DEFAULT NULL,
   `harga` double DEFAULT NULL,
   `deskripsi` text,
+  `gambar` text,
   PRIMARY KEY (`idmenu`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `menu` */
+
+insert  into `menu`(`idmenu`,`ididentitas`,`idkategori`,`menu`,`harga`,`deskripsi`,`gambar`) values 
+(1,1,1,'Seblak',20000,'Seblak Mantab','seblak.jpeg'),
+(2,1,2,'teh',2000,'teh mantab','esteh.jpeg');
 
 /*Table structure for table `penjualan` */
 
@@ -110,10 +122,14 @@ CREATE TABLE `sentra` (
   `kapasitas_sentra` int DEFAULT NULL COMMENT 'Kapasitas Sentra ( berapa lapak )',
   `jml_pelaku_sentra` int DEFAULT NULL COMMENT 'Jumlah Penjual yang menyewa',
   `biaya_operasional_sentra` double DEFAULT NULL COMMENT 'Biaya sewa',
+  `gambar` text COMMENT 'Gambar sentra',
   PRIMARY KEY (`idsentra`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `sentra` */
+
+insert  into `sentra`(`idsentra`,`nama_sentra`,`alamat_sentra`,`kec_sentra`,`kel_sentra`,`luas_sentra`,`kapasitas_sentra`,`jml_pelaku_sentra`,`biaya_operasional_sentra`,`gambar`) values 
+(1,'SWK Rungkut','Jl Rungkut','Rungkut','merr',200000,50,0,1000000,'psr gedangan.jpg');
 
 /*Table structure for table `sewa` */
 
@@ -145,13 +161,15 @@ CREATE TABLE `user` (
   `email` varchar(255) DEFAULT NULL,
   `telp` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`iduser`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /*Data for the table `user` */
 
 insert  into `user`(`iduser`,`Nama`,`Alamat`,`Role`,`Username`,`Password`,`email`,`telp`) values 
 (1,'budi','sidoarjo',1,'budi','12345678','budi@gmail.com','0894126436363'),
-(2,'Siti','Rungkut',2,'siti','12345678','siti@gmail.com','089215521515');
+(2,'Siti','Rungkut',2,'siti','12345678','siti@gmail.com','089215521515'),
+(3,'admin','Buduran',1,'admin','admin','admin@gmail.com','0893223962391'),
+(4,'tes','tes',2,'tes','tes','siswa@gmail.com','08932668392');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

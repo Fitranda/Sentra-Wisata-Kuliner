@@ -69,6 +69,58 @@ h2 {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease-in-out;
 }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 0;
+}
+
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f0f0f0;
+}
+
+.table-striped tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-bordered {
+  border: 1px solid #ddd;
+}
+
+.table-bordered th, .table-bordered td {
+  border: 1px solid #ddd;
+}
+
+.add-button:hover {
+  background-color: #3e8e41;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.add-button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transform: translateY(2px);
+}
+
+.add-button {
+  background-color: #4CAF50;
+  margin-left: 20px;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
 </style>
 <?php 
     $identitas = $db->getITEM("select * from identitas where iduser ='".$_SESSION['iduser']."'");
@@ -103,7 +155,47 @@ h2 {
     <?php if(!empty($identitas)) :?>
         <?php 
             $menu = $db->getALL("select * from menu where ididentitas ='".$identitas['ididentitas']."'");
+            $kategori = $db->getALL("select * from kategori");
+            $kategori = array_column($kategori, 'kategori', 'idkategori');
         ?>
+        <div class="kotak">
+            <h2>Menu</h2>
+            <button class="add-button" value="<?=$identitas['ididentitas']?>">Tambah</button>
+            <table id="table-id" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                    <th>No</th>
+                    <th>Action</th>
+                    <th>Kategori</th>
+                    <th>Gambar</th>
+                    <th>Menu</th>
+                    <th>Harga</th>
+                    <th>Deskripsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    if (!empty($menu)) :
+                    foreach ($menu as $key => $value) :?>
+                        <tr>
+                            <td><?=$key+1?></td>
+                            <td>
+                                <a class="btn btn-success" href="<?=getBaseUrl().'?f=penjual&m=ubahMenu&idmenu='.$value['idmenu']?>">Ubah</a>
+                                <a class="btn btn-danger" href="<?=getBaseUrl().'?f=penjual&m=hapusMenu&idmenu='.$value['idmenu']?>">Hapus</a>
+                            </td>
+                            <td><?=$kategori[$value['idkategori']]?></td>
+                            <td><img src="assets/img/<?= $value['gambar']?>" alt="" srcset=""></td>
+                            <td><?=$value['menu']?></td>
+                            <td>Rp. <?=number_format($value['harga'],0,",",".")?></td>
+                            <td><?=$value['deskripsi']?></td>
+                        </tr>
+                    <?php 
+                    endforeach;
+                    endif;
+                    ?>
+                </tbody>
+            </table>
+        </div>
     <?php else :?>
         <div class="kotak">
             <h2>Sentra</h2>
@@ -135,6 +227,10 @@ h2 {
 <script type="text/javascript">
     $('.btn-logout').on('click', function() {
     window.location.href = '?f=home&m=logout';
+    });
+
+    $('.add-button').on('click', function() {
+    window.location.href = '?f=penjual&m=tambahMenu&id='+$(this).attr('value');
     });
 
     $('.pilih-button').on('click', function() {
