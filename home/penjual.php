@@ -15,7 +15,64 @@
         color: white!important;
         padding: 5px 20px;
     }
+
+    .card {
+  /* max-width: 300px; */
+  margin: 0 20px;
+  margin-top: 5vh;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  /* display: inline-block; */
+}
+.kotak {
+    max-width: auto;
+  margin: 0 auto;
+  margin-top: 20vh;
+}
+
+h2 {
+    text-align: center;
+}
+
+.card-image {
+  width: 100%;
+  height: 214px;
+  border-radius: 12px 12px 0 0;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.card-address,.card-capacity,.card-operators,.card-operational-cost {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.pilih-button {
+  background-color: green !important;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
 </style>
+<?php 
+    $identitas = $db->getITEM("select * from identitas where iduser ='".$_SESSION['iduser']."'");
+?>
 <nav class="navbar navbar-expand-sm navbar-dark position-fixed" style="background-color: #EFEFEF; color: #4773B8; z-index: 200; top: 0; left: 0; right: 0; ">
         <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="assets/logo.svg" style="height: 40px;" alt="logo">
@@ -42,10 +99,45 @@
             </ul>
         
         </div>
-    </nav>
+</nav>
+    <?php if(!empty($identitas)) :?>
+        <?php 
+            $menu = $db->getALL("select * from menu where ididentitas ='".$identitas['ididentitas']."'");
+        ?>
+    <?php else :?>
+        <div class="kotak">
+            <h2>Sentra</h2>
+            <div class="kotak-card d-flex justify-content-center flex-wrap">
+                <?php 
+                $data_SWK = $db->getALL("select * from sentra");
+                foreach ($data_SWK as $key => $value):?>
+                    <div class="card">
+                        <img src="assets/img/<?php echo $value['gambar']?>" alt="Gambar" class="card-image">
+                        <div class="card-content">
+                            <h2 class="card-name"><?=$value['nama_sentra']?></h2>
+                            <p class="card-address"><?=$value['alamat_sentra']?></p>
+                            <p class="card-capacity">Luas: <?=number_format($value['luas_sentra'],0,",",".")?> M<sup>2</sup></p>
+                            <p class="card-capacity">Kapasitas: <?=$value['kapasitas_sentra']?> orang</p>
+                            <p class="card-operators">Jumlah Pelaku: <?=$value['jml_pelaku_sentra']?> orang</p>
+                            <p class="card-operational-cost">Biaya Operasional: Rp <?=number_format($value['biaya_operasional_sentra'],0,",",".")?></p>
+                            <br>
+                            <button value="<?=$value['idsentra']?>" id="pilih_<?=$value['idsentra']?>" class="pilih-button">Pilih</button>
+                        </div>
+                    </div>
+                <?php 
+                endforeach;
+                ?>
+            </div>
+
+         </div>
+    <?php endif?>
 
 <script type="text/javascript">
     $('.btn-logout').on('click', function() {
     window.location.href = '?f=home&m=logout';
+    });
+
+    $('.pilih-button').on('click', function() {
+    window.location.href = '?f=penjual&m=tambah&id='+$(this).attr('value');
     });
 </script>

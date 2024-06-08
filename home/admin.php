@@ -71,6 +71,30 @@ h2 {
   transition: all 0.3s ease-in-out;
 }
 
+.delete-button {
+  background-color: red !important;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
+.edit-button {
+  background-color: green !important;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-in-out;
+}
+
 .add-button:hover {
   background-color: #3e8e41;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
@@ -115,13 +139,17 @@ h2 {
     $data_SWK = $db->getALL("select * from sentra");
     foreach ($data_SWK as $key => $value):?>
         <div class="card">
-            <img src="../assets/img/<?php echo $value['gambar']?>" alt="Gambar" class="card-image">
+            <img src="assets/img/<?php echo $value['gambar']?>" alt="Gambar" class="card-image">
             <div class="card-content">
                 <h2 class="card-name"><?=$value['nama_sentra']?></h2>
                 <p class="card-address"><?=$value['alamat_sentra']?></p>
+                <p class="card-capacity">Luas: <?=number_format($value['luas_sentra'],0,",",".")?> M<sup>2</sup></p>
                 <p class="card-capacity">Kapasitas: <?=$value['kapasitas_sentra']?> orang</p>
                 <p class="card-operators">Jumlah Pelaku: <?=$value['jml_pelaku_sentra']?> orang</p>
                 <p class="card-operational-cost">Biaya Operasional: Rp <?=number_format($value['biaya_operasional_sentra'],0,",",".")?></p>
+                <br>
+                <button value="<?=$value['idsentra']?>" id="delete_<?=$value['idsentra']?>" class="delete-button">Hapus</button>
+                <button value="<?=$value['idsentra']?>" id="edit_<?=$value['idsentra']?>" class="edit-button">Ubah</button>
             </div>
         </div>
     <?php 
@@ -138,5 +166,26 @@ h2 {
     $('.btn-logout').on('click', function() {
     window.location.href = '?f=home&m=logout';
     });
+    $('.edit-button').on('click', function() {
+    window.location.href = '?f=admin&m=editSentra&id='+$(this).attr('value');
+    });
+
+    $('.delete-button').click(function(event) {
+        event.preventDefault();
+        var value = $(this).attr('value');
+        console.log(value,"safa");
+        $.ajax({
+          type: 'POST',
+          url: '?f=admin&m=hapusSentra', // replace with your PHP script URL
+          data: {id: value},
+          success: function(data) {
+            alert('Data berhasil dihapus');
+            location.reload();
+          },
+          error: function(xhr, status, error) {
+            alert('Error submitting form: ' + error);
+          }
+        });
+      });
 </script>
     

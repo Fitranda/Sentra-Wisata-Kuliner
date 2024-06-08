@@ -48,6 +48,9 @@
   margin: 10px auto;
 }
 </style>
+<?php 
+    $item = $db->getITEM("select * from sentra where idsentra=".$_GET['id']);
+?>
 <nav class="navbar navbar-expand-sm navbar-dark position-fixed" style="background-color: #EFEFEF; color: #4773B8; z-index: 200; top: 0; left: 0; right: 0; ">
         <a class="navbar-brand d-flex align-items-center" href="#">
             <img src="assets/logo.svg" style="height: 40px;" alt="logo">
@@ -74,55 +77,76 @@
 </nav>
 
     <div class="full">
-            <center><h3>Tambah Sentra</h3></center>
+            <center><h3>Ubah Sentra</h3></center>
             <div class="lt">
                 <form class="form-horizontal" method="post" action="" enctype='multipart/form-data'>
                     <div class="form-group">
+                        <div class="col-sm-2 control-label">
+                            <label for="nama" class="control-label">Nama Sentra</label>
+                        </div>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="nama" placeholder="Nama" name="nama" value="" />
+                            <input type="text" class="form-control" id="nama" placeholder="Nama" name="nama" value="<?=$item['nama_sentra']?>" />
+                            <input type="hidden" class="form-control" id="idsentra" placeholder="idsentra" name="idsentra" value="<?=$item['idsentra']?>" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-2 control-label">
+                            <label for="alamat">Alamat Sentra</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="alamat" placeholder="Alamat" name="alamat" value="<?=$item['alamat_sentra']?>" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-5 control-label">
+                            <label for="kecamatan">Kecamatan Sentra</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="kecamatan" placeholder="Kecamatan" name="kecamatan" value="<?=$item['kec_sentra']?>" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-5 control-label">
+                            <label for="kelurahan">Kelurahan Sentra</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" id="kelurahan" placeholder="Kelurahan" name="kelurahan" value="<?=$item['kel_sentra']?>" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-5 control-label">
+                            <label for="luas">Luas Sentra</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="number" class="form-control" id="luas" placeholder="Luas" name="luas" value="<?=$item['luas_sentra']?>" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-5 control-label">
+                            <label for="kapasitas">Kapasitas Sentra</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="number" class="form-control" id="kapasitas" placeholder="Kapasitas" name="kapasitas" value="<?=$item['kapasitas_sentra']?>" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-5 control-label">
+                            <label for="biaya">Biaya Operasional Sentra</label>
+                        </div>
+                        <div class="col-sm-12">
+                            <input type="number" class="form-control" id="biaya" placeholder="Biaya" name="biaya" value="<?=$item['biaya_operasional_sentra']?>" />
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="alamat" placeholder="Alamat" name="alamat" value="" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="kecamatan" placeholder="Kecamatan" name="kecamatan" value="" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <input type="text" class="form-control" id="kelurahan" placeholder="Kelurahan" name="kelurahan" value="" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <input type="number" class="form-control" id="luas" placeholder="Luas" name="luas" value="" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <input type="number" class="form-control" id="kapasitas" placeholder="Kapasitas" name="kapasitas" value="" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <input type="number" class="form-control" id="biaya" placeholder="Biaya" name="biaya" value="" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-sm-12">
-                            <img id="preview" src="" alt="Preview" />
+                            <img id="preview" src="assets/img/<?=$item['gambar']?>" alt="Preview" />
                             <input type="file" class="form-control" id="gambar" placeholder="Gambar" name="gambar" value="" />
                         </div>
                     </div>
-                    <button class="btn btn-primary send-button" id="submit" type="submit" value="TambahSentra" name="TambahSentra">Tambah Sentra</button>
+                    <button class="btn btn-primary send-button" id="submit" type="submit" value="UbahSentra" name="UbahSentra">Ubah Sentra</button>
                 </form>
             </div>
         </div>
-
         <script>
             const gambarInput = document.getElementById('gambar');
             const previewImage = document.getElementById('preview');
@@ -140,30 +164,36 @@
         </script>
 
 <?php 
-if (isset($_POST['TambahSentra'])) {
+if (isset($_POST['UbahSentra'])) {
     $nama = $_POST['nama'];
+    $idsentra = $_POST['idsentra'];
     $alamat = $_POST['alamat'];
     $kecamatan = $_POST['kecamatan'];
     $kelurahan = $_POST['kelurahan'];
     $luas = $_POST['luas'];
     $kapasitas = $_POST['kapasitas'];
     $biaya = $_POST['biaya'];
-    $gambar = $_FILES['gambar']['name'];
-    $temp_file = $_FILES['gambar']['tmp_name'];
-    $target_dir = "assets/img/";
-    $target_file = $target_dir . basename($gambar);
+    if (!empty($_FILES['gambar']['name']) ){
+        $gambar = $_FILES['gambar']['name'];
+        $temp_file = $_FILES['gambar']['tmp_name'];
+        $target_dir = "assets/img/";
+        $target_file = $target_dir . basename($gambar);
 
-    // Check if the target directory exists, if not, create it
-    if (!is_dir($target_dir)) {
-        mkdir($target_dir, 0777, true);
-    }
+        // Check if the target directory exists, if not, create it
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0777, true);
+        }
 
-    // Move the uploaded file to the target directory
-    if (move_uploaded_file($temp_file, $target_file)) {
-        echo "File berhasil dipindahkan ke $target_file";
-    } else {
-        echo "Error: " . error_get_last()['message'];
+        // Move the uploaded file to the target directory
+        if (move_uploaded_file($temp_file, $target_file)) {
+            echo "File berhasil dipindahkan ke $target_file";
+        } else {
+            echo "Error: " . error_get_last()['message'];
+        }
+    }else{
+        $gambar = $item['gambar'];
     }
+    
     $sql = "insert into sentra (
         `nama_sentra`,
         `alamat_sentra`,
@@ -175,6 +205,8 @@ if (isset($_POST['TambahSentra'])) {
         `biaya_operasional_sentra`,
         `gambar`
       ) values('$nama','$alamat','$kecamatan','$kelurahan','$luas','$kapasitas',0,'$biaya','$gambar')";
+
+    $sql = "update sentra set nama_sentra = '$nama', alamat_sentra = '$alamat', kec_sentra = '$kecamatan', kel_sentra = '$kelurahan', luas_sentra = '$luas', kapasitas_sentra = '$kapasitas',biaya_operasional_sentra = '$biaya', gambar = '$gambar' where idsentra = '$idsentra'";
     $db->runSQL($sql);
     header("location:index.php");
     $url = getBaseUrl();
