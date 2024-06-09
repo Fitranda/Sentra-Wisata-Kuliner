@@ -49,6 +49,7 @@
         public function runSQL($sql)
         {
             $result = mysqli_query($this->koneksi, $sql);
+            return $result;
         }
 
         public function pesan($text="")

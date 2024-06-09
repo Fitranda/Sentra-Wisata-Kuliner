@@ -115,7 +115,30 @@ h2 {
 <?php 
   $data_SWK = $db->getITEM("select * from sentra where idsentra='".$_GET['id']."'");
   $kapasitas = $data_SWK['kapasitas_sentra'];
- 
+?>
+<?php 
+if (isset($_POST['TambahIdentitas'])) {
+    $idsentra = $_POST['idsentra'];
+    $nama = $_POST['nama'];
+    $email = $_POST['email'];
+    $telp = $_POST['telephone'];
+    $no_lapak = $_POST['no_lapak'];
+    $iduser = $_SESSION['iduser'];
+
+    $sql = "insert into identitas (
+        `idsentra`,
+        `iduser`,
+        `Nama`,
+        `no_lapak`,
+        `telp`,
+        `email`
+      ) values('$idsentra','$iduser','$nama','$no_lapak','$telp','$email')";
+    $db->runSQL($sql);
+    header("location:index.php");
+    $url = getBaseUrl();
+    var_dump($url);die;
+    echo "<script type='text/javascript'>window.location.href='$url';</script>";
+}
 ?>
 <nav class="navbar navbar-expand-sm navbar-dark position-fixed" style="background-color: #EFEFEF; color: #4773B8; z-index: 200; top: 0; left: 0; right: 0; ">
         <a class="navbar-brand d-flex align-items-center" href="#">
@@ -185,26 +208,4 @@ h2 {
     </form>
 </div>
 
-<?php 
-if (isset($_POST['TambahIdentitas'])) {
-    $idsentra = $_POST['idsentra'];
-    $nama = $_POST['nama'];
-    $email = $_POST['email'];
-    $telp = $_POST['telephone'];
-    $no_lapak = $_POST['no_lapak'];
-    $iduser = $_SESSION['iduser'];
 
-    $sql = "insert into identitas (
-        `idsentra`,
-        `iduser`,
-        `Nama`,
-        `no_lapak`,
-        `telp`,
-        `email`
-      ) values('$idsentra','$iduser','$nama','$no_lapak','$telp','$email')";
-    $db->runSQL($sql);
-    header("location:index.php");
-    $url = getBaseUrl();
-    echo "<script type='text/javascript'>window.location.href='$url';</script>";
-}
-?>

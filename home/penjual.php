@@ -180,11 +180,11 @@ h2 {
                         <tr>
                             <td><?=$key+1?></td>
                             <td>
-                                <a class="btn btn-success" href="<?=getBaseUrl().'?f=penjual&m=ubahMenu&idmenu='.$value['idmenu']?>">Ubah</a>
-                                <a class="btn btn-danger" href="<?=getBaseUrl().'?f=penjual&m=hapusMenu&idmenu='.$value['idmenu']?>">Hapus</a>
+                                <button class="btn btn-success edit" value="<?= $value ['idmenu']?>" href="<?=getBaseUrl().'?f=penjual&m=ubahMenu&idmenu='.$value['idmenu']?>">Ubah</button>
+                                <button class="btn btn-danger hapus" value="<?= $value ['idmenu']?>" href="<?=getBaseUrl().'?f=penjual&m=hapusMenu&idmenu='.$value['idmenu']?>">Hapus</button>
                             </td>
                             <td><?=$kategori[$value['idkategori']]?></td>
-                            <td><img src="assets/img/<?= $value['gambar']?>" alt="" srcset=""></td>
+                            <td><img style="width: 200px;" src="assets/img/<?= $value['gambar']?>" alt="" srcset=""></td>
                             <td><?=$value['menu']?></td>
                             <td>Rp. <?=number_format($value['harga'],0,",",".")?></td>
                             <td><?=$value['deskripsi']?></td>
@@ -230,10 +230,29 @@ h2 {
     });
 
     $('.add-button').on('click', function() {
-    window.location.href = '?f=penjual&m=tambahMenu&id='+$(this).attr('value');
+      window.location.href = '?f=penjual&m=tambahMenu&id='+$(this).attr('value');
     });
 
-    $('.pilih-button').on('click', function() {
-    window.location.href = '?f=penjual&m=tambah&id='+$(this).attr('value');
+    $('.edit').on('click', function() {
+      window.location.href = '?f=penjual&m=ubahMenu&idmenu='+$(this).attr('value');
+    });
+
+    $('.hapus').on('click', function() {
+        event.preventDefault();
+        var value = $(this).attr('value');
+        // console.log(value,"safa");
+        $.ajax({
+          type: 'POST',
+          url: '?f=penjual&m=hapusMenu', // replace with your PHP script URL
+          data: {id: value},
+          success: function(data) {
+            alert('Data berhasil dihapus');
+            location.reload();
+          },
+          error: function(xhr, status, error) {
+            alert('Error submitting form: ' + error);
+          }
+        });
+      // window.location.href = '?f=penjual&m=ubahMenu&idmenu='+$(this).attr('value');
     });
 </script>
